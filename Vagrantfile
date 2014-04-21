@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 BOX_NAME = ENV['BOX_NAME'] || "ubuntu"
-BOX_URI = ENV['BOX_URI'] || "/Volumes/data/vagrant/box/"
+BOX_URI = ENV['BOX_URI'] || "http://tao.wang.in/ubuntu.box"
 
 Vagrant::Config.run do |config|
   # Setup virtual machine box. This VM configuration code is always executed.

@@ -101,21 +101,16 @@ start(){
          funplus/mongodb:test /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
 
-    sleep 1
+    #sleep 1
 
 }
 
 update(){
     apt-get update
     apt-get install -y lxc-docker
-    cp /vagrant/etc/docker.conf /etc/init/docker.conf
 
-    docker pull relateiq/zookeeper
-    docker pull relateiq/redis
-    docker pull relateiq/cassandra
-    docker pull relateiq/elasticsearch
-    docker pull relateiq/mongo
-    docker pull relateiq/kafka
+    docker pull funplus/redis
+    docker pull funplus/mongo
     docker pull shipyard/shipyard
 }
 

@@ -101,15 +101,9 @@ start(){
         docker.repo:8001/funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
 
-<<<<<<< HEAD
-    sleep 1
-    sh  "$DIR/init.sh"
-=======
     sh "$DIR/init.sh"
 
     #sleep 1
-
->>>>>>> 035cee8761ae76247605b19436d58a3d01b080fd
 }
 
 update(){

@@ -4,30 +4,31 @@
 BOX_NAME = ENV['BOX_NAME'] || "ubuntu"
 BOX_URI = ENV['BOX_URI'] || "/Volumes/data/vagrant/box/"
 
-Vagrant::Config.run do |config|
+Vagrant.configure(2) do |config|
   # Setup virtual machine box. This VM configuration code is always executed.
   config.vm.box = BOX_NAME
   config.vm.box_url = BOX_URI
 
   #Shipyard
-  config.vm.forward_port 8005, 8005
+  config.vm.network "forwarded_port", guest: 8005, host: 8005
 
   #nginx
-  config.vm.forward_port 80, 8088
+  config.vm.network "forwarded_port", guest: 80, host: 8088
 
   #mysql
-  config.vm.forward_port 3306, 6000
+  config.vm.network "forwarded_port", guest: 3306, host: 6000
 
   #redis
-  config.vm.forward_port 6379, 6001
+  config.vm.network "forwarded_port", guest: 6379, host: 6001
 
   #memcached
-  config.vm.forward_port 11211, 6002
+  config.vm.network "forwarded_port", guest: 11211, host: 6002
   
   #mongo
-  config.vm.forward_port 27017, 6003
-  config.vm.forward_port 28017, 6004
+  config.vm.network "forwarded_port", guest: 27017, host: 6003
+  config.vm.network "forwarded_port", guest: 28017, host: 6004
 
+  config.vm.synced_folder "./www", "/home/vagrant/www"
  end
 
 

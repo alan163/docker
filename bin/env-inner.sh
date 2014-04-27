@@ -36,7 +36,7 @@ start(){
         -d \
         -p 80:80 \
         -v $APPS/php/logs:/nginx/log \
-        -v $APPS/www:/code/ \
+        -v ~/www:/code/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
         funplus/php:bv \
@@ -102,7 +102,7 @@ start(){
     echo "Started MONGO in container $MONGO"
 
     sleep 1
-
+    sh  "$DIR/init.sh"
 }
 
 update(){

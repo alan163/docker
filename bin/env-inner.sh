@@ -39,7 +39,7 @@ start(){
         -v ~/www:/code/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
-        funplus/php:bv \
+        docker.repo:8001/funplus/php \
         sh /run.sh)
     echo "Started PHP in container $PHP"
 
@@ -55,7 +55,7 @@ start(){
         -v $APPS/mysql/data:/data \
         -v $SCRIPT_HOME:/docker \
         --name mysql \
-        funplus/mysql:5.1.65 \
+        docker.repo:8001/funplus/mysql \
         sh /run.sh)
     echo "Started MYSQL in container $MYSQL"
 
@@ -70,7 +70,7 @@ start(){
         -v $APPS/redis/data:/data \
         -v $SCRIPT_HOME:/docker \
         --name redis \
-        funplus/redis:2.4.16 \
+        docker.repo:8001/funplus/redis \
         sh /run.sh)
     echo "Started REDIS in container $REDIS"
 
@@ -82,7 +82,7 @@ start(){
         -p 11211:11211 \
         -v $SCRIPT_HOME:/docker \
         --name memcached \
-        funplus/memcached:1.4.15)
+        docker.repo:8001/funplus/memcached)
     echo "Started MEMCACHED in container $MEMCACHED"
 
 
@@ -98,24 +98,26 @@ start(){
         -v $APPS/mongo/logs:/logs \
         -d \
         --name mongo \
-         funplus/mongodb:test /usr/local/bin/supervisord -c /supervisord.conf -n)
+        docker.repo:8001/funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
 
+<<<<<<< HEAD
     sleep 1
     sh  "$DIR/init.sh"
+=======
+    sh "$DIR/init.sh"
+
+    #sleep 1
+
+>>>>>>> 035cee8761ae76247605b19436d58a3d01b080fd
 }
 
 update(){
     apt-get update
     apt-get install -y lxc-docker
-    cp /vagrant/etc/docker.conf /etc/init/docker.conf
 
-    docker pull relateiq/zookeeper
-    docker pull relateiq/redis
-    docker pull relateiq/cassandra
-    docker pull relateiq/elasticsearch
-    docker pull relateiq/mongo
-    docker pull relateiq/kafka
+    docker pull funplus/redis
+    docker pull funplus/mongo
     docker pull shipyard/shipyard
 }
 

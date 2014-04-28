@@ -20,10 +20,10 @@ case "$1" in
         ;;
     update)
         git pull
-        vagrant ssh -c "sudo /vagrant/bin/env-inner.sh update"
+        vagrant ssh -c "sudo /vagrant/bin/dev-inner.sh update"
         ;;
     *)
-        vagrant ssh -c "sudo /vagrant/bin/env-inner.sh $1"
+        vagrant ssh -c "sudo /vagrant/bin/dev-inner.sh $1"
         ;;
 esac
 

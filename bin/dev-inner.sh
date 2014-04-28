@@ -139,11 +139,6 @@ init_mysql() {
 }
 
 case "$1" in
-    init)
-        fix_registry_ip
-        start
-        init_code
-        ;;
     restart)
         killz
         fix_registry_ip

@@ -2,8 +2,11 @@
 #set -e
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-APPS=${APPS:-/mnt/apps}
+APPS=${APPS:-/home/vagrant/apps}
 SCRIPT_HOME=$(dirname $DIR)
+REGISTRY="docker.repo:8001/"
+
+. $SCRIPT_HOME/bin/init.sh
 
 killz(){
     echo "Killing all docker containers:"
@@ -36,17 +39,21 @@ start(){
         -d \
         -p 80:80 \
         -v $APPS/php/logs:/nginx/log \
+        -v $APPS/php/logs:/mnt/htdocs/logs \
         -v ~/www:/code/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
-        docker.repo:8001/funplus/php \
+        ${REGISTRY}funplus/php \
         sh /run.sh)
     echo "Started PHP in container $PHP"
 
     sudo mkdir -p $APPS/mysql/logs
     sudo mkdir -p $APPS/mysql/data
-    sudo chown mysql:mysql -R $APPS/mysql
+    #sudo chown mysql:mysql -R $APPS/mysql
     sudo docker rm mysql > /dev/null 2>&1
+
+    # init mysql for 
+    #init_mysql
 
     MYSQL=$(docker run \
         -d \
@@ -55,7 +62,7 @@ start(){
         -v $APPS/mysql/data:/data \
         -v $SCRIPT_HOME:/docker \
         --name mysql \
-        docker.repo:8001/funplus/mysql \
+        ${REGISTRY}funplus/mysql \
         sh /run.sh)
     echo "Started MYSQL in container $MYSQL"
 
@@ -70,7 +77,7 @@ start(){
         -v $APPS/redis/data:/data \
         -v $SCRIPT_HOME:/docker \
         --name redis \
-        docker.repo:8001/funplus/redis \
+        ${REGISTRY}funplus/redis \
         sh /run.sh)
     echo "Started REDIS in container $REDIS"
 
@@ -82,7 +89,7 @@ start(){
         -p 11211:11211 \
         -v $SCRIPT_HOME:/docker \
         --name memcached \
-        docker.repo:8001/funplus/memcached)
+        ${REGISTRY}funplus/memcached)
     echo "Started MEMCACHED in container $MEMCACHED"
 
 
@@ -98,29 +105,52 @@ start(){
         -v $APPS/mongo/logs:/logs \
         -d \
         --name mongo \
-        docker.repo:8001/funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
+        ${REGISTRY}funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
 
-    sh "$DIR/init.sh"
-
-    #sleep 1
 }
 
 update(){
-    apt-get update
-    apt-get install -y lxc-docker
+    #apt-get update
+    #apt-get install -y lxc-docker
 
-    docker pull funplus/redis
-    docker pull funplus/mongo
-    docker pull shipyard/shipyard
+    docker pull ${REGISTRY}funplus/redis
+    docker pull ${REGISTRY}funplus/mongo
+    docker pull ${REGISTRY}funplus/php
+    docker pull ${REGISTRY}funplus/mysql
+    docker pull ${REGISTRY}funplus/memcached
+}
+
+fix_registry_ip() {
+    . $SCRIPT_HOME/etc/registry.conf
+    sudo sed -i -e "s/.*docker.repo/$DOCKER_REG_IP docker.repo/g" /etc/hosts
+    sleep 1
+}
+
+init_mysql() {
+    docker run \
+        -d \
+        -p 3306:3306 \
+        -v $APPS/mysql/logs:/logs \
+        -v $APPS/mysql/data:/data \
+        -v $SCRIPT_HOME:/docker \
+        ${REGISTRY}funplus/mysql \
+        /mysql/bin/mysql_install_db --user=mysql --ldata=/data
 }
 
 case "$1" in
+    init)
+        fix_registry_ip
+        start
+        init_code
+        ;;
     restart)
         killz
+        fix_registry_ip
         start
         ;;
     start)
+        fix_registry_ip
         start
         ;;
     stop)
@@ -130,7 +160,11 @@ case "$1" in
         killz
         ;;
     update)
+        update_code
+        ;;
+    update_all)
         update
+        update_code
         ;;
     status)
         docker ps

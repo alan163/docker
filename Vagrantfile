@@ -31,7 +31,6 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "./www", "/home/vagrant/www"
  end
 
-
 # Providers were added on Vagrant >= 1.1.0
 Vagrant::VERSION >= "1.1.0" and Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|

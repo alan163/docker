@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 27017, host: 6003
   config.vm.network "forwarded_port", guest: 28017, host: 6004
 
-  #config.vm.synced_folder "./www", "/home/vagrant/www"
+  config.vm.synced_folder "./www", "/home/vagrant/www"
  end
 
 # Providers were added on Vagrant >= 1.1.0

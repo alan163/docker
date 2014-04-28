@@ -1,6 +1,6 @@
 #!/bin/bash
-git clone https://github.com/alan163/docker.git
-cd docker
+#git clone https://github.com/alan163/docker.git
+#cd docker
 
 wget http://tao.wang.in/www.tar.gz 
 tar zxf www.tar.gz 

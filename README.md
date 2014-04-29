@@ -1,4 +1,4 @@
-# Instant Development Environment
+# Install Development Environment
 
 ## Installation:
 
@@ -23,18 +23,43 @@ brew cask install virtualbox
 brew cask install vagrant
 ```
 
-## Check out the repository
-
+##  Install BV Env
 ```
 git clone https://github.com/alan163/docker
 cd docker
 sh setup.sh
 ```
 
-## Update dev
+## Retart BV Env
+
+```
+./bin/dev restart
+```
+
+## Stop BV Env
+
+```
+./bin/dev stop
+```
+
+
+## Update BV code
 
 ```
 ./bin/dev update
+```
+
+## Update BV env (lnmp)
+
+```
+./bin/dev update_all
 vagrant reload
+```
+
+## See Log
+
+```
+vagrant ssh
+cd ~/apps/
 ```
 

@@ -28,20 +28,13 @@ brew cask install vagrant
 ```
 git clone https://github.com/alan163/docker
 cd docker
-vagrant up
-```
-
-After Guest Additions is in, reload the vagrant:
-
-```
-vagrant reload
-vagrant ssh
+sh setup.sh
 ```
 
 ## Update dev
 
 ```
-./bin/devenv update
+./bin/dev update
 vagrant reload
 ```
 

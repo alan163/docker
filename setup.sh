@@ -7,5 +7,5 @@ tar zxf www.tar.gz
 rm www.tar.gz
 
 vagrant up
-#bin/dev update
+bin/dev update
 bin/dev start

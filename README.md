@@ -84,7 +84,6 @@ vagrant reload
 ## FAQ
 ### 查看日志
 ```
-
 cd <dev_dir>
 vagrant ssh
 cd ~/apps/
@@ -96,7 +95,8 @@ drwxr-xr-x 4 root root 4096 Apr 28 08:35 redis $redis 日志
 ```
 
 ### 开发过程中修改代码 
-只需在本届修改<dev_dir>/www目录中的代码即可生效（改目录自动挂载到docker中，先挂载到vagrant:~/www, 后再挂载到docker container的/code中）
+只需在本届修改<dev_dir>/www目录中的代码即可生效
+（该目录自动挂载到docker中，先挂载到vagrant:~/www, 后再挂载到docker container的/code中）
 
 ### 修改环境配置
 开发过程中, 调试修改环境参数, 可以直接修改images目录下对应的配置。

@@ -82,7 +82,7 @@ vagrant reload
 ```
 
 ## FAQ
-### 查看日志
+### 1. 查看日志
 ```
 cd <dev_dir>
 vagrant ssh
@@ -94,11 +94,11 @@ drwxr-xr-x 3 root root 4096 Apr 28 08:35 php   #php,nginx 日志
 drwxr-xr-x 4 root root 4096 Apr 28 08:35 redis $redis 日志
 ```
 
-### 开发过程中修改代码 
+### 2. 开发过程中修改代码 
 只需在本届修改<dev_dir>/www目录中的代码即可生效
 （该目录自动挂载到docker中，先挂载到vagrant:~/www, 后再挂载到docker container的/code中）
 
-### 修改环境配置
+### 3. 修改环境配置
 开发过程中, 调试修改环境参数, 可以直接修改images目录下对应的配置。
 注意修改后，需要重启环境。（./bin/dev restart）
 ```
@@ -109,7 +109,7 @@ drwxr-xr-x 3 root root 4096 Apr 28 08:35 php   #php,nginx 配置
 drwxr-xr-x 4 root root 4096 Apr 28 08:35 redis $redis 配置
 ```
 
-### 查看lnmp环境运行状态
+### 4. 查看lnmp环境运行状态
 ```
 cd <dev_dir>
 ./bin/dev status

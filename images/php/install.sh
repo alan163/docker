@@ -28,8 +28,8 @@ mkdir -p /home/work/webroot /home/work/app /home/work/conf /home/work/data /home
 
 #清理环境
 echo 'export PATH=$PATH:/home/work/php/bin/'>/home/work/.bashrc
-wget https://raw.githubusercontent.com/alan163/docker/master/images/php/conf.tar.gz && tar zxf conf.tar.gz
-wget https://raw.githubusercontent.com/alan163/docker/master/images/php/run.sh && chmod +x run.sh
+wget --no-check-certificate https://raw.githubusercontent.com/alan163/docker/master/images/php/conf.tar.gz && tar zxf conf.tar.gz
+wget --no-check-certificate https://raw.githubusercontent.com/alan163/docker/master/images/php/run.sh && chmod +x run.sh
 
 RUN rm  /home/work/*.tar.gz && rm -rf /home/work/php-$PHP_VERSION /home/work/nginx-$NGINX_VERSION
 RUN chown work:work -R /home/work

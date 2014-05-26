@@ -4,7 +4,7 @@
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 APPS=${APPS:-/home/vagrant/apps}
 SCRIPT_HOME=$(dirname $DIR)
-REGISTRY="docker.repo:8001/"
+REGISTRY="docker.repo.in/"
 
 . $SCRIPT_HOME/bin/init.sh
 
@@ -37,10 +37,9 @@ start(){
     sudo docker rm php > /dev/null 2>&1
     PHP=$(docker run \
         -d \
-        -p 80:80 \
-        -v $APPS/php/logs:/nginx/log \
-        -v $APPS/php/logs:/mnt/htdocs/logs \
-        -v ~/www:/code/ \
+        -p 80:80 -p 2233:22\
+        -v $APPS/php/logs:/home/work/logs \
+        -v ~/www:/home/work/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
         ${REGISTRY}funplus/php \
@@ -107,6 +106,12 @@ start(){
         --name mongo \
         ${REGISTRY}funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
+
+    SHIPYARD=$(docker run \
+        -p 8005:8000 \
+        -d \
+        shipyard/shipyard)
+    echo "Started SHIPYARD in container $SHIPYARD"
 
 }
 

@@ -52,4 +52,4 @@ RUN chown work:work -R /home/work
 EXPOSE 22
 EXPOSE 80
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/home/work/run.sh"]

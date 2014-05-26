@@ -35,16 +35,12 @@ start(){
     sudo docker rm php > /dev/null 2>&1
     PHP=$(docker run \
         -d \
-        -p 80:80 -p 2233:22\
-        -v ~/www/webroot:/home/work/webroot/ \
-        -v ~/www/conf:/home/work/conf/ \
-        -v ~/www/app:/home/work/app/ \
-        -v ~/www/logs:/home/work/logs \
-        -v ~/www/data:/home/work/data \
+        -p 80:8000 -p 2233:22\
+        -v ~/www/:/home/work/webroot/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
         ${REGISTRY}funplus/php \
-        sh /run.sh)
+        sh /home/work/run.sh)
     echo "Started PHP in container $PHP"
 
     sudo mkdir -p $APPS/mysql/logs

@@ -47,6 +47,6 @@ checkout_git() {
     ip=$(ifconfig docker0 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " ")
     find ~/www/conf/ -name '*.php' | xargs sed -i "s|127.0.0.1|$ip|g"
     find ~/www/conf/ -name '*.php' | xargs sed -i "s|localhost|$ip|g"
-    sed -i "s|'log_path'.*|'log_path' => '/nginx/log/',|g" ~/www/conf/farm_mobile/log.php
+    sed -i "s|'log_path'.*|'log_path' => '/home/work/logs/',|g" ~/www/conf/farm_mobile/log.php
     sed -i "s|'replicaSet'.*||g" ~/www/conf/farm_mobile/*.php
 }

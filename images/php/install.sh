@@ -4,11 +4,11 @@ PHP_VERSION=5.3.5
 NGINX_VERSION=0.8.55
 
 #groupadd  work && useradd work -m -s /bin/bash -d /home/work -g work
-wget http://epel.mirror.net.in/epel/6/i386/epel-release-6-8.noarch.rpm
-rpm -Uvh epel-release-6-8.noarch.rpm && rm epel-release-6-8.noarch.rpm
-echo 'work:123456' | chpasswd
-
-yum -y install gcc pcre pcre-devel gcc-c++ autoconf libxml2 libxml2-devel zlib zlib-devel glibc libjepg libjepg-devel libpng libpng-devel glibc-devel glib2 glib2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers libxml2-devel libxslt-devel   gd openssh-clients mysql-devel GeoIP GeoIP-devel vi vim perl-devel gd-devel
+#wget http://epel.mirror.net.in/epel/6/i386/epel-release-6-8.noarch.rpm
+#rpm -Uvh epel-release-6-8.noarch.rpm && rm epel-release-6-8.noarch.rpm
+#echo 'work:123456' | chpasswd
+#
+#yum -y install gcc pcre pcre-devel gcc-c++ autoconf libxml2 libxml2-devel zlib zlib-devel glibc libjepg libjepg-devel libpng libpng-devel glibc-devel glib2 glib2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers libxml2-devel libxslt-devel   gd openssh-clients mysql-devel GeoIP GeoIP-devel vi vim perl-devel gd-devel
 
 su work - && cd /home/work/
 
@@ -29,9 +29,9 @@ mkdir -p /home/work/webroot /home/work/app /home/work/conf /home/work/data /home
 #清理环境
 echo 'export PATH=$PATH:/home/work/php/bin/'>/home/work/.bashrc
 wget --no-check-certificate https://raw.githubusercontent.com/alan163/docker/master/images/php/conf.tar.gz && tar zxf conf.tar.gz
-wget --no-check-certificate https://raw.githubusercontent.com/alan163/docker/master/images/php/run.sh && chmod +x run.sh
+#wget --no-check-certificate https://raw.githubusercontent.com/alan163/docker/master/images/php/run.sh && chmod +x run.sh
 
-RUN rm  /home/work/*.tar.gz && rm -rf /home/work/php-$PHP_VERSION /home/work/nginx-$NGINX_VERSION
-RUN chown work:work -R /home/work
+rm  /home/work/*.tar.gz && rm -rf /home/work/php-$PHP_VERSION /home/work/nginx-$NGINX_VERSION
+chown work:work -R /home/work
 
 

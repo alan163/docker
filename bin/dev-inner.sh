@@ -32,14 +32,15 @@ stop(){
 }
 
 start(){
-    sudo mkdir -p $APPS/php/logs
-    sudo mkdir -p $APPS/www/
     sudo docker rm php > /dev/null 2>&1
     PHP=$(docker run \
         -d \
         -p 80:80 -p 2233:22\
-        -v $APPS/php/logs:/home/work/logs \
-        -v ~/www:/home/work/ \
+        -v ~/www/webroot:/home/work/webroot/ \
+        -v ~/www/conf:/home/work/conf/ \
+        -v ~/www/app:/home/work/app/ \
+        -v ~/www/logs:/home/work/logs \
+        -v ~/www/data:/home/work/data \
         -v $SCRIPT_HOME:/docker \
         --name php \
         ${REGISTRY}funplus/php \

@@ -1,5 +1,5 @@
 #/bin/bash
-#set -e
+set -e
 PHP_VERSION=5.3.5
 NGINX_VERSION=0.8.55
 

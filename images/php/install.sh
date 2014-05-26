@@ -10,7 +10,7 @@ echo 'work:123456' | chpasswd
 
 yum -y install gcc pcre pcre-devel gcc-c++ autoconf libxml2 libxml2-devel zlib zlib-devel glibc libjepg libjepg-devel libpng libpng-devel glibc-devel glib2 glib2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel openssl openssl-devel openldap openldap-devel nss_ldap openldap-clients openldap-servers libxml2-devel libxslt-devel   gd openssh-clients mysql-devel GeoIP GeoIP-devel vi vim perl-devel gd-devel
 
-su work - && cd ~
+su work - && cd /home/work/
 
 wget http://fantasymobile-test1.socialgamenet.com/src/nginx-${NGINX_VERSION}.tar.gz && \
 tar zxf nginx-${NGINX_VERSION}.tar.gz && \

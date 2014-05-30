@@ -54,8 +54,8 @@ start(){
     MYSQL=$(docker run \
         -d \
         -p 3306:3306 \
-        -v $APPS/mysql/logs:/logs \
-        -v $APPS/mysql/data:/data \
+        -v $APPS/mysql/logs:/mysql/logs \
+        -v $APPS/mysql/data:/mysql/data \
         -v $SCRIPT_HOME:/docker \
         --name mysql \
         ${REGISTRY}funplus/mysql \
@@ -104,11 +104,8 @@ start(){
         ${REGISTRY}funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
     echo "Started MONGO in container $MONGO"
 
-    SHIPYARD=$(docker run \
-        -p 8005:8000 \
-        -d \
-        shipyard/shipyard)
-    echo "Started SHIPYARD in container $SHIPYARD"
+    #SHIPYARD=$(docker run \ -p 8005:8000 \ -d \ shipyard/shipyard)
+    #echo "Started SHIPYARD in container $SHIPYARD"
 
 }
 
@@ -161,7 +158,7 @@ case "$1" in
         ;;
     update_all)
         update
-        update_code
+        #update_code
         ;;
     status)
         docker ps

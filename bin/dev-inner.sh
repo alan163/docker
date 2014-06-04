@@ -39,8 +39,7 @@ start(){
         -v ~/www/:/home/work/webroot/ \
         -v $SCRIPT_HOME:/docker \
         --name php \
-        ${REGISTRY}funplus/php \
-        sh /home/work/run.sh)
+        ${REGISTRY}funplus/php)
     echo "Started PHP in container $PHP"
 
     sudo mkdir -p $APPS/mysql/logs
@@ -58,8 +57,7 @@ start(){
         -v $APPS/mysql/data:/mysql/data \
         -v $SCRIPT_HOME:/docker \
         --name mysql \
-        ${REGISTRY}funplus/mysql \
-        sh /run.sh)
+        ${REGISTRY}funplus/mysql )
     echo "Started MYSQL in container $MYSQL"
 
 
@@ -73,8 +71,7 @@ start(){
         -v $APPS/redis/data:/data \
         -v $SCRIPT_HOME:/docker \
         --name redis \
-        ${REGISTRY}funplus/redis \
-        sh /run.sh)
+        ${REGISTRY}funplus/redis )
     echo "Started REDIS in container $REDIS"
 
 
@@ -101,7 +98,7 @@ start(){
         -v $APPS/mongo/logs:/logs \
         -d \
         --name mongo \
-        ${REGISTRY}funplus/mongo /usr/local/bin/supervisord -c /supervisord.conf -n)
+        ${REGISTRY}funplus/mongo)
     echo "Started MONGO in container $MONGO"
 
     #SHIPYARD=$(docker run \ -p 8005:8000 \ -d \ shipyard/shipyard)
@@ -140,11 +137,9 @@ init_mysql() {
 case "$1" in
     restart)
         killz
-        fix_registry_ip
         start
         ;;
     start)
-        fix_registry_ip
         start
         ;;
     stop)

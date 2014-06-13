@@ -21,7 +21,9 @@ cd php-${PHP_VERSION} && \
 ./configure --prefix=/home/work/php --sbindir=/home/work/php/sbin --with-config-file-path=/home/work/php/etc --with-config-file-scan-dir=/home/work/php/etc/php.d --enable-fpm --enable-mbstring --without-pear --with-libdir=lib64 --with-curl --with-openssl  --with-zlib   --with-mysql=shared,mysqlnd  --enable-pcntl --with-pdo-mysql && \
 make && make install
 
-mkdir -p /home/work/webroot /home/work/app /home/work/conf /home/work/data /home/work/webserver/tmp /home/work/logs/nginx /home/work/logs/php
+mkdir -p /home/work/webroot /home/work/app /home/work/conf /home/work/data /home/work/webserver/tmp 
+ln -s logs /mnt/logs/log
+mkdir -p /home/work/logs/nginx /home/work/logs/php
 
 #清理环境
 echo 'export PATH=$PATH:/home/work/php/bin/'>/home/work/.bashrc

@@ -1,8 +1,8 @@
 FROM centos:centos6
 MAINTAINER wangtao <tao.wang@funplus.com>
 
-ENV PHP_VERSION 5.3.5
-ENV NGINX_VERSION 0.8.55
+ENV PHP_VERSION 5.4.28
+ENV NGINX_VERSION 1.4.5
 
 #user sys init
 RUN groupadd  work && useradd work -m -s /bin/bash -d /home/work -g work
@@ -29,13 +29,13 @@ WORKDIR /home/work
 RUN wget http://docker.repo.in:8000/src/nginx-${NGINX_VERSION}.tar.gz && \
     tar zxf nginx-${NGINX_VERSION}.tar.gz && \
     cd nginx-${NGINX_VERSION} &&  \
-    ./configure --prefix=/home/work/webserver/  --error-log-path=/home/work/logs/error.log --http-log-path=/home/work/logs/access.log --http-client-body-temp-path=/home/work/webserver/tmp/client_body --http-proxy-temp-path=/home/work/webserver/tmp/proxy --http-fastcgi-temp-path=/home/work/webserver/tmp/fastcgi --http-uwsgi-temp-path=/home/work/webserver/tmp/uwsgi --http-scgi-temp-path=/home/work/webserver/tmp/scgi --pid-path=/home/work/var/nginx.pid --lock-path=//home/work/var/nginx.lock --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module  --with-mail --with-file-aio --with-mail_ssl_module --with-ipv6 && \
+    ./configure --prefix=/home/work/webserver/  --error-log-path=/home/work/logs/nginx/error.log --http-log-path=/home/work/logs/nginx/access.log --http-client-body-temp-path=/home/work/webserver/tmp/client_body --http-proxy-temp-path=/home/work/webserver/tmp/proxy --http-fastcgi-temp-path=/home/work/webserver/tmp/fastcgi --http-uwsgi-temp-path=/home/work/webserver/tmp/uwsgi --http-scgi-temp-path=/home/work/webserver/tmp/scgi --pid-path=/home/work/var/nginx.pid --lock-path=//home/work/var/nginx.lock --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_image_filter_module --with-http_geoip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_stub_status_module  --with-mail --with-file-aio --with-mail_ssl_module --with-ipv6 && \
     make && make install
 
 RUN wget http://docker.repo.in:8000/src/php-${PHP_VERSION}.tar.gz && \
     tar zxf php-${PHP_VERSION}.tar.gz && \
     cd php-${PHP_VERSION} && \
-    ./configure --prefix=/home/work/php --sbindir=/home/work/php/sbin --with-config-file-path=/home/work/php/etc --with-config-file-scan-dir=/home/work/php/etc/php.d --enable-fpm --enable-mbstring --without-pear --with-libdir=lib64 --with-curl --with-openssl  --with-zlib   && \
+    ./configure --prefix=/home/work/php --sbindir=/home/work/php/sbin --with-config-file-path=/home/work/php/etc --with-config-file-scan-dir=/home/work/php/etc/php.d --enable-fpm --enable-mbstring --without-pear --with-libdir=lib64 --with-curl --with-openssl  --with-zlib   --with-mysql=shared,mysqlnd  --enable-pcntl --with-pdo-mysql && \
     make && make install
 
 RUN mkdir -p /home/work/webroot /home/work/app /home/work/conf /home/work/data /home/work/webserver/tmp
